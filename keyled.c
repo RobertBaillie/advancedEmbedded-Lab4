@@ -19,11 +19,13 @@
  * @param argv:    The actual number inputted by the user
  * @return:        Returns an int to indicate successful execution
  */
+
 int main(int argc, char *argv[]) {
 
   // Checks for valid input count (program, argument)
   int correctInput = 2;
-  int keybitsoff = 0;
+  int allkeybitsoff = 0;
+  int allkeybitson = 7;
   int delay = 1;
   int numPos = 1;
 
@@ -42,7 +44,7 @@ int main(int argc, char *argv[]) {
 
   // Since the LEDs do not perfectly correspond with binary values this converts
   // each input to the proper binary output
-  if ((num >= 0) && (num <= 7)) {
+  if ((num >= allkeybitsoff) && (num <= allkeybitson)) {
     switch (num) {
     case 1:
       num = 1;
@@ -69,8 +71,7 @@ int main(int argc, char *argv[]) {
       ioctl(1, KDSETLED, num);
       break;
     case 7:
-      num = 7;
-      ioctl(1, KDSETLED, num);
+      ioctl(1, KDSETLED, allkeybitson);
       break;
     default:
       break;
@@ -80,5 +81,5 @@ int main(int argc, char *argv[]) {
   }
 
   sleep(delay);
-  ioctl(1, KDSETLED, keybitsoff);
+  ioctl(1, KDSETLED, allkeybitsoff);
 }
